@@ -1,29 +1,25 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 
 namespace RabbitMQProducer
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
             PositionWindow();
-            
-          
+
             Console.Write("Producer:");
             var input = Console.ReadLine();
-            using ( var rabbitClient = new RabbitMqDirectProducer() )
+            using (var rabbitClient = new RabbitMqDirectProducer())
             {
                 rabbitClient.SendMessage(input);
                 while (true)
                 {
-                    
-                    // var rabbitClient = new RabbitMQDirectClient();
-                    
+
                 }
             }
-         
+
         }
 
         private static void PositionWindow()

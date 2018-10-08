@@ -9,19 +9,15 @@ namespace RabbitMQConsumer
         static void Main(string[] args)
         {
             PositionWindow();
-           
-         
-            using ( var rabbitClient = new RabbitMqDirectConsumer() )
+
+            using (new RabbitMqDirectConsumer())
             {
-              
                 while (true)
                 {
                     
-                    // var rabbitClient = new RabbitMQDirectClient();
-                    
+                   
                 }
             }
-         
         }
 
         private static void PositionWindow()
