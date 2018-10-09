@@ -1,30 +1,32 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 
-namespace RabbitMQConsumer
+namespace RabbitMQDirectProducer
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
             PositionWindow();
 
-            using (new RabbitMqDirectConsumer())
+            Console.Write("Producer:");
+            var input = Console.ReadLine();
+            using (var rabbitClient = new RabbitMqDirectProducer())
             {
+                rabbitClient.SendMessage(input);
                 while (true)
                 {
-                    
-                   
+
                 }
             }
+
         }
 
         private static void PositionWindow()
         {
             Console.SetWindowSize(45, 20);
             Console.SetBufferSize(45, 20);
-            MoveWindow(450, 100);
+            MoveWindow(25, 100);
         }
 
         private static void MoveWindow(int left, int top)
@@ -51,6 +53,5 @@ namespace RabbitMQConsumer
             public int right;
             public int bottom;
         }
-
     }
 }

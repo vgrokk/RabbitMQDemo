@@ -3,7 +3,7 @@ using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace RabbitMQConsumer
+namespace RabbitMQDirectConsumer
 {
     public class RabbitMqDirectConsumer :IDisposable
     {
