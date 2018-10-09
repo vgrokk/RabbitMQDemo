@@ -16,7 +16,7 @@ namespace RabbitMQProducer
                 while (true)
                 {
                     rabbitClient.PlaceOrder();
-                    await Task.Delay(TimeSpan.FromSeconds(5));
+                    await Task.Delay(TimeSpan.FromSeconds(3));
                 }
             }
         }
