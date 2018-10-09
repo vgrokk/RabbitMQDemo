@@ -1,31 +1,21 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace RabbitMQDirectProducer
+namespace BissliConsumer
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
             PositionWindow();
-
-            Console.Write("Producer:");
-            var input = Console.ReadLine();
-            using (var rabbitClient = new RabbitMqDirectProducer())
-            {
-                rabbitClient.SendMessage(input);
-                while (true)
-                {
-
-                }
-            }
+            new RabbitMQConsumer().ProcessMessages();
         }
 
         private static void PositionWindow()
         {
             Console.SetWindowSize(45, 20);
             Console.SetBufferSize(45, 20);
-            MoveWindow(25, 100);
+            MoveWindow(555, 100);
         }
 
         private static void MoveWindow(int left, int top)
@@ -54,3 +44,4 @@ namespace RabbitMQDirectProducer
         }
     }
 }
+

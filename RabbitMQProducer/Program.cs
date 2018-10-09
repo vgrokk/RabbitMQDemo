@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
-namespace RabbitMQDirectProducer
+namespace RabbitMQProducer
 {
-    internal class Program
+    class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             PositionWindow();
-
-            Console.Write("Producer:");
-            var input = Console.ReadLine();
-            using (var rabbitClient = new RabbitMqDirectProducer())
+            Console.WriteLine("Press to start");
+            Console.ReadLine();
+            using (var rabbitClient = new RabbitMqProducer())
             {
-                rabbitClient.SendMessage(input);
                 while (true)
                 {
-
+                    rabbitClient.PlaceOrder();
+                    await Task.Delay(TimeSpan.FromSeconds(5));
                 }
             }
         }
@@ -54,3 +54,4 @@ namespace RabbitMQDirectProducer
         }
     }
 }
+
