@@ -1,26 +1,46 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace RabbitMQProducer
 {
-    class Program
+    internal class Program
     {
         static async Task Main(string[] args)
         {
+            #region 
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
             PositionWindow();
+            #endregion
+            
             Console.WriteLine("Press to start");
             Console.ReadLine();
+            
             using (var rabbitClient = new RabbitMqProducer())
             {
                 while (true)
                 {
                     rabbitClient.PlaceOrder();
-                    await Task.Delay(TimeSpan.FromSeconds(3));
+                    await Task.Delay(TimeSpan.FromSeconds(2));
                 }
             }
+
+            /*  while (true)
+            {
+                var azureClient = new AzureServiceBusProducer(configuration["ConnectionString"]);
+           
+                azureClient.PlaceOrder();
+            }*/
+
         }
 
+
+        #region
         private static void PositionWindow()
         {
             Console.SetWindowSize(45, 20);
@@ -52,6 +72,7 @@ namespace RabbitMQProducer
             public int right;
             public int bottom;
         }
+        #endregion
     }
 }
 

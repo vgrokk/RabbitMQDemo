@@ -17,10 +17,10 @@ namespace RabbitMQDirectConsumer
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
            
-            var replyQueueName = _channel.QueueDeclare("req_Queue", true, false, false, null);
+            var requestQueue = _channel.QueueDeclare("req_Queue", true, false, false, null);
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += (o, args) => { OnReceived(args); };
-            _channel.BasicConsume(replyQueueName, true, consumer);
+            _channel.BasicConsume(requestQueue, true, consumer);
         }
      
         private void OnReceived(BasicDeliverEventArgs args)

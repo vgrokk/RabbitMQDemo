@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
+using Microsoft.Extensions.Configuration;
 
 namespace BambaOrderConsumer
 {
@@ -7,10 +9,23 @@ namespace BambaOrderConsumer
     {
         static void Main(string[] args)
         {
+            #region 
             PositionWindow();
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+            #endregion
+     
             new RabbitMQConsumer().ProcessMessages();
+            /*new AzureServiceBusConsumer(configuration["ConnectionString"]);
+            while (true)
+            {
+                
+            }*/
         }
 
+        #region 
         private static void PositionWindow()
         {
             Console.SetWindowSize(45, 20);
@@ -42,6 +57,10 @@ namespace BambaOrderConsumer
             public int right;
             public int bottom;
         }
+        
+
+        #endregion
+       
     }
 }
 

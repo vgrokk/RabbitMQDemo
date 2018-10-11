@@ -9,9 +9,6 @@ namespace RabbitMQProducer
         private readonly IConnection _connection;
         private readonly IModel _model;
         private const string ExchangeName = "Topic_Exchange";
-        private const string BambaQueueName = "OrderBambaTopic_Queue";
-        private const string BissliQueueName = "OrderBissliTopic_Queue";
-        private const string AllQueueName = "AllOrdersTopic_Queue";
         private const string BambaTopicName = "order.bamba";
         private const string BissliTopicName = "order.bissli";
         private readonly Random _random = new Random();
@@ -29,14 +26,7 @@ namespace RabbitMQProducer
             _model = _connection.CreateModel();
             _model.ExchangeDeclare(ExchangeName, "topic");
 
-            _model.QueueDeclare(BambaQueueName, true, false, false, null);
-            _model.QueueDeclare(BissliQueueName, true, false, false, null);
-            _model.QueueDeclare(AllQueueName, true, false, false, null);
-
-            _model.QueueBind(BambaQueueName, ExchangeName, BambaTopicName);
-            _model.QueueBind(BissliQueueName, ExchangeName, BissliTopicName);
-
-            _model.QueueBind(AllQueueName, ExchangeName, "order.*");
+         
         }
 
         public void PlaceOrder()
